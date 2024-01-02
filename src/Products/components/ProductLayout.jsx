@@ -6,22 +6,25 @@ import { FormComponent } from './FormComponent'
 import { useEffect, useState } from 'react';
 import { saveProduct } from '../services';
 import { Loading } from './Loading';
-import { getProducts } from "../services"
+import { getProductsUser, getProducts } from "../services"
 
 export const ProductLayout = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isLoading, setisLoading] = useState(true)
-  const [products, setProducts] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
+  const [products, setProducts] = useState([]);
 
   async function loadProducts () {
       
-    const response = await getProducts()
+    const response = await getProducts();
+
+    const data = await response.json();
+
+    console.log(data);
   
     if (response.status === 200){
-      const data = await response.json()
-      setProducts(data.products)
-    }
+      setProducts(data.products);
+    } else console.log('Error');
   
     setisLoading(false)
   
@@ -31,19 +34,12 @@ export const ProductLayout = () => {
 
   useEffect(() => {
     loadProducts()
-  }, [])
-
-  const handleSubmit = async (data) => {
-    await saveProduct(data)
-    loadProducts()
-    setIsModalOpen(false)
-  }
+  }, []);
 
   return (
 
     <Container>
       <Header title={'Products App'}></Header>
-      <AddButton onClick={() => setIsModalOpen(true)}></AddButton>
       
       {
         isLoading && <Loading></Loading>
@@ -52,31 +48,16 @@ export const ProductLayout = () => {
       {
         !isLoading && !products.length && (
           <h1 className="title has-text-centered">
-            You don't have products
+            There are no products
           </h1>
         )
       }
 
       {
-        !isLoading && products.length && (
+        !isLoading && products.length>0 && (
           <ListProducts products={products}></ListProducts>
         )
       }
-      
-      
-      <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Modal.Card>
-          <Modal.Card.Header>
-            <Modal.Card.Title>
-              Add product
-            </Modal.Card.Title>
-          </Modal.Card.Header>
-          <Modal.Card.Body>
-            <FormComponent handleSubmit={handleSubmit}></FormComponent>
-          </Modal.Card.Body>
-        </Modal.Card>
-      </Modal>
-      
       
     </Container>
     

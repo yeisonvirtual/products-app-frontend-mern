@@ -1,6 +1,10 @@
-import { Card, Columns, Content, Heading } from "react-bulma-components"
+import { Button, Card, Columns, Content, Heading } from "react-bulma-components"
 
-export const ListProducts = ({products}) => {
+export const ListMyProducts = ({products, handleDelete}) => {
+
+  const _handleDelete = (productID) =>{
+    handleDelete(productID);
+  }
 
   return (
     <Columns>
@@ -18,8 +22,14 @@ export const ListProducts = ({products}) => {
                   <p>
                     {product.description}
                   </p>
-                  { product.user && <Heading subtitle size={6}>Owner: {product.user.email}</Heading> }
-                  { !product.user && <Heading subtitle size={6}>Owner: Unknown</Heading> }
+                  <Button.Group>
+                    <Button onClick={ () => console.log(id) } color="info" renderAs="span">
+                      Edit
+                    </Button>
+                    <Button onClick={ () => _handleDelete(product._id) } color="danger" renderAs="span">
+                      Delete
+                    </Button>
+                  </Button.Group>
                 </Content>
               </Card.Content>
             </Card>
