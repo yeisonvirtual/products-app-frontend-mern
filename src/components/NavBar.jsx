@@ -1,17 +1,16 @@
-import { Link, NavLink, Navigate } from "react-router-dom"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../context/UserContext"
 import { logout } from "../Auth/services/auth";
 import { useNavigate } from 'react-router-dom';
 
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { Navbar } from "react-bulma-components";
-import Logo from "../assets/images/logo.png"
+import Logo from "../assets/images/logo.png";
 
 export const NavBar = () => {
 
   const { isAuthenticated, setIsAuthenticated, user, setUser } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,8 +35,8 @@ export const NavBar = () => {
     const response = await logout();
 
     if (response.status === 201) {
-      setUser({})
-      setIsAuthenticated(false)
+      setUser({});
+      setIsAuthenticated(false);
       navigate('/login');
     }
     
@@ -55,10 +54,13 @@ export const NavBar = () => {
             width="40"
           />
         </Navbar.Item>
-        <Navbar.Burger />
+        <Navbar.Item href="/products">
+          <h1>Products App</h1>
+        </Navbar.Item>
+        <Navbar.Burger onClick={()=>{ setIsOpen(!isOpen)} } className={`${isOpen ? 'is-active' : ''}`}/>
       </Navbar.Brand>
 
-      <Navbar.Menu>
+      <Navbar.Menu className={`${isOpen ? 'is-active' : ''}`}>
 
         <Navbar.Container>
 
@@ -75,20 +77,19 @@ export const NavBar = () => {
             )
           }
 
-        {
-          isAuthenticated && (
-            <>
-              <Navbar.Item href="/products">
-                Products
-              </Navbar.Item>
-            </>
-          )
-        }
+          {
+            isAuthenticated && (
+              <>
+                <Navbar.Item href="/products">
+                  Products
+                </Navbar.Item>
+              </>
+            )
+          }
 
-        <Navbar.Item href="/about">
-          About
-        </Navbar.Item>
-          
+          <Navbar.Item href="/about">
+            About
+          </Navbar.Item>
           
         </Navbar.Container>
 

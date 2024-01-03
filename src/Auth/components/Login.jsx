@@ -1,5 +1,5 @@
 import { FormLogin } from './FormLogin'
-import { Button, Container, Message, Section } from 'react-bulma-components';
+import { Button, Card, Container, Message, Section } from 'react-bulma-components';
 import { login } from '../services/auth';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
@@ -33,6 +33,7 @@ export const Login = () => {
 
   return (
     <>
+    <Card style={{ width: 800, margin: 'auto' }}>
       <Section>
         <Container>
           <h1 className="title has-text-centered">Login</h1>
@@ -54,6 +55,7 @@ export const Login = () => {
           <FormLogin handleSubmit={handleSubmit} />
         </Container>
       </Section>
+      </Card>
     </>
   )
 }

@@ -18,14 +18,14 @@ export const MyProducts = () => {
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
-  async function loadProducts () {
+  const loadProducts = async () => {
       
     const response = await getProductsUser();
+    const data = await response.json();
+    console.log(data)
   
     if (response.status === 200){
       
-      const data = await response.json()
-      console.log(data)
       setProducts(data.products)
 
     } else setErrors(data.message);
@@ -36,12 +36,13 @@ export const MyProducts = () => {
   
   }
 
+  const handleEdit = async (productID) => {
+    navigate(`/myproducts/${productID}`);
+  }
+
   const handleDelete = async (productID) => {
     
     const response = await deleteProduct(productID);
-
-    console.log(response)
-
     const data = await response.json();
     console.log(data)
 
@@ -65,6 +66,7 @@ export const MyProducts = () => {
   return (
 
     <Container>
+      
       <Header title={'Products App'}></Header>
       
       {
@@ -99,7 +101,7 @@ export const MyProducts = () => {
 
       {
         !isLoading && products.length>0 && (
-          <ListMyProducts handleDelete={handleDelete} products={products}></ListMyProducts>
+          <ListMyProducts handleEdit={handleEdit} handleDelete={handleDelete} products={products}></ListMyProducts>
         )
       }
       
@@ -116,8 +118,7 @@ export const MyProducts = () => {
           </Modal.Card.Body>
         </Modal.Card>
       </Modal>
-      
-      
+
     </Container>
     
   )

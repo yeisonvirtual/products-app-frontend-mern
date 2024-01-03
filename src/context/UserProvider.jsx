@@ -28,9 +28,6 @@ export const UserProvider = ({ children }) => {
         const res = await verifyTokenRequest(token);
         const userData = await res.json()
 
-        console.log(res);
-        
-
         if (res.status!==200) {
           setIsAuthenticated(false);
           setIsLoading(false);

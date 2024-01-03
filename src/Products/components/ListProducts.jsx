@@ -8,8 +8,8 @@ export const ListProducts = ({products}) => {
       products.map(product=> 
         (
           <Columns.Column size={3} key={product._id}>
-            <Card>
-              <Card.Image size="16by9" src={product.imgUrl}></Card.Image>
+            <Card style={{ width: 300, margin: 'auto' }}>
+              <Card.Image size="square" src={product.imgUrl}></Card.Image>
               <Card.Content>
                 <Content>
                   <Heading>{product.name}</Heading>

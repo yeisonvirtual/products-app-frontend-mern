@@ -5,6 +5,7 @@ import { ProductLayout } from "./Products/components/ProductLayout"
 import { Register } from './Auth/components/Register';
 import { MyProducts } from './Products/components/MyProducts';
 import { About } from './components/About';
+import { EditProduct } from './Products/components/EditProduct';
 
 export const AppRoutes = () => {
 
@@ -18,6 +19,7 @@ export const AppRoutes = () => {
           <Route element={ <ProtectedRoute />  }>
             <Route path = '/products' element={ <ProductLayout />  } />
             <Route path = '/myproducts' element={ <MyProducts />  } />
+            <Route path = '/myproducts/:id' element={ <EditProduct />  } />
           </Route>
 
           <Route path="/*" element={ <Login /> } />

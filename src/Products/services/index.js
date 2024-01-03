@@ -1,36 +1,4 @@
-const urlBase = 'http://localhost:8080/v1'
-
-const getProducts = async () => {
-    
-  try {
-
-    const response = await fetch(`${urlBase}/allproducts`,{
-      credentials: 'include',
-    });
-      
-    return response;
-
-  } catch (e) {
-    console.log({ message: e.message });
-  }
-
-}
-
-const getProductsUser = async () => {
-    
-  try {
-
-    const response = await fetch(`${urlBase}/products`,{
-      credentials: 'include',
-    });
-      
-    return response;
-
-  } catch (e) {
-    console.log({ message: e.message });
-  }
-
-}
+const urlBase = 'http://localhost:8080/v1/products'
 
 const saveProduct = async (productData) => {
     
@@ -49,17 +17,86 @@ const saveProduct = async (productData) => {
     formData.append('image', productData.image);
     formData.append('user', productData.user);
 
-    const response = await fetch(`${urlBase}/products`, {
+    const response = await fetch(`${urlBase}`, {
       method: "POST",
       credentials: 'include',
       body: formData
     });
-
-    console.log(await response.json());
       
     return response
 
-  } catch (error) {
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+
+}
+
+const getProducts = async () => {
+    
+  try {
+
+    const response = await fetch(`${urlBase}`,{
+      credentials: 'include',
+    });
+      
+    return response;
+
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+
+}
+
+const getProductsUser = async () => {
+    
+  try {
+
+    const response = await fetch(`${urlBase}/myproducts/`,{
+      credentials: 'include',
+    });
+      
+    return response;
+
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+
+}
+
+const getProduct = async (productID) => {
+
+  try {
+
+    const response = await fetch(`${urlBase}/myproducts/${productID}`,{
+      credentials: 'include',
+    });
+      
+    return response;
+
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+
+}
+
+const updateProduct = async (productData) => {
+    
+  try {
+
+    const data = JSON.stringify(productData);
+
+    const response = await fetch(`${urlBase}/update/${productData.id}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+      body: data
+    });
+      
+    return response
+
+  } catch (e) {
     console.log({ message: e.message });
   }
 
@@ -69,17 +106,9 @@ const deleteProduct = async (productID) => {
     
   try {
 
-    const data = JSON.stringify({
-      "productID": productID
-    });
-
-    const response = await fetch(`${urlBase}/deleteproduct`, {
+    const response = await fetch(`${urlBase}/delete/${productID}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: 'include',
-      body: data
+      credentials: 'include'
     });
       
     return response;
@@ -94,5 +123,7 @@ export {
   getProducts,
   getProductsUser,
   saveProduct,
+  getProduct,
+  updateProduct,
   deleteProduct
 }
