@@ -33,7 +33,7 @@ export const ProductLayout = () => {
   }
 
   useEffect(() => {
-    loadProducts()
+    loadProducts();
   }, []);
 
   return (

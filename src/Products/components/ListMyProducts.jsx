@@ -22,7 +22,7 @@ export const ListMyProducts = ({products, handleEdit, handleDelete}) => {
                 <Content>
                   <Heading>{product.name}</Heading>
                   <Heading subtitle size={6}>Price: {product.unitaryPrice}</Heading>
-                  <Heading subtitle size={6}>Size: {product.size}</Heading>
+                  { product.size && <Heading subtitle size={6}>Size: {product.size}</Heading> }
                   <p>
                     {product.description}
                   </p>

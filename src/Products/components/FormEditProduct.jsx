@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Content, Card, Form, Button, Columns, Container } from 'react-bulma-components';
-import productImg from '../../assets/images/owner.jpg'
+import { Content, Card, Form, Button } from 'react-bulma-components';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../services';
-import { useNavigate } from 'react-router-dom';
 
 export const FormEditProduct = ({handleSubmit}) => {
 
@@ -17,8 +15,6 @@ export const FormEditProduct = ({handleSubmit}) => {
   });
 
   const params = useParams();
-  const [errors, setErrors] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
 

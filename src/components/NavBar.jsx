@@ -87,6 +87,16 @@ export const NavBar = () => {
             )
           }
 
+          {
+            isAuthenticated && user.type==='admin' && (
+              <>
+                <Navbar.Item href="/users">
+                  Users
+                </Navbar.Item>
+              </>
+            )
+          }
+
           <Navbar.Item href="/about">
             About
           </Navbar.Item>
@@ -100,8 +110,8 @@ export const NavBar = () => {
                 <Navbar.Item hoverable>
                   <Navbar.Link>{user.email}</Navbar.Link>
                   <Navbar.Dropdown>
-                    <Navbar.Item>
-                      Name: {user.name}
+                    <Navbar.Item href="/profile">
+                      My profile
                     </Navbar.Item>
                     <Navbar.Item href="/myproducts">
                       My products

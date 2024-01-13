@@ -1,19 +1,19 @@
 import { Button, Message, Container, Section } from 'react-bulma-components';
-import { FormEditProduct } from './FormEditProduct';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { updateProduct } from '../services';
+import { FormEditUser } from './FormEditUser';
+import { updateUser } from '../services/users';
 
-export const EditProduct = () => {
-
+export const EditUser = () => {
+  
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (productData) => {
+  const handleSubmit = async (userData) => {
 
-    console.log(productData)
+    console.log(userData);
     
-    const response = await updateProduct(productData);
+    const response = await updateUser(userData);
 
     const data = await response.json();
 
@@ -21,7 +21,7 @@ export const EditProduct = () => {
 
     if (response.status === 200) {
       
-      navigate('/myproducts');
+      navigate('/users');
     }
     else setErrors(data.message);
 
@@ -30,7 +30,7 @@ export const EditProduct = () => {
   return (
     <Section>
       <Container>
-        <h1 className="title has-text-centered">Edit Product</h1>
+        <h1 className="title has-text-centered">Edit User</h1>
         {
             errors && (
               <Message color="danger">
@@ -46,7 +46,7 @@ export const EditProduct = () => {
               </Message>
             )
           }
-        <FormEditProduct handleSubmit={handleSubmit} />
+        <FormEditUser handleSubmit={handleSubmit} />
 
       </Container>
     </Section>

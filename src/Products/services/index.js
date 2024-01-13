@@ -8,17 +8,18 @@ const saveProduct = async (productData) => {
     const formData = new FormData();
 
     const unitaryPrice = await Number(productData.unitaryPrice);
-    const size = await Number(productData.size);
 
     formData.append('name', productData.name);
     formData.append('unitaryPrice', unitaryPrice);
-    formData.append('size', size);
+    if (productData.size) {
+      formData.append('size', size);
+    }
     formData.append('description', productData.description);
     formData.append('image', productData.image);
     formData.append('user', productData.user);
 
     const response = await fetch(`${urlBase}`, {
-      method: "POST",
+      method: 'POST',
       credentials: 'include',
       body: formData
     });

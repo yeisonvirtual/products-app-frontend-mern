@@ -1,4 +1,5 @@
 import { Card, Columns, Content, Heading } from "react-bulma-components"
+import { Link } from "react-router-dom"
 
 export const ListProducts = ({products}) => {
 
@@ -14,12 +15,9 @@ export const ListProducts = ({products}) => {
                 <Content>
                   <Heading>{product.name}</Heading>
                   <Heading subtitle size={6}>Price: {product.unitaryPrice}</Heading>
-                  <Heading subtitle size={6}>Size: {product.size}</Heading>
-                  <p>
-                    {product.description}
-                  </p>
-                  { product.user && <Heading subtitle size={6}>Owner: {product.user.email}</Heading> }
-                  { !product.user && <Heading subtitle size={6}>Owner: Unknown</Heading> }
+                  { product.size && <Heading subtitle size={6}>Size: {product.size}</Heading> }
+                  <p>{product.description}</p>
+                  <Heading subtitle size={6}>Owner: <Link to={`/users/${product.user._id}`}>{product.user.email}</Link></Heading>
                 </Content>
               </Card.Content>
             </Card>
