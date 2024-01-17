@@ -30,7 +30,7 @@ export const EditUser = () => {
   return (
     <Section>
       <Container>
-        <h1 className="title has-text-centered">Edit User</h1>
+        <h1 className="title has-text-centered">User Edit</h1>
         {
             errors && (
               <Message color="danger">

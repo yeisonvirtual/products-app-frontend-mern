@@ -10,7 +10,8 @@ export const FormEditUser = ({handleSubmit}) => {
     id: '',
     name: '',
     email: '',
-    type: ''
+    type: '',
+    active: ''
   });
 
   const params = useParams();
@@ -22,13 +23,21 @@ export const FormEditUser = ({handleSubmit}) => {
     const response = await getUser(userID);
     const data = await response.json();
     console.log(data.user);
+    console.log(data.user.active)
 
     if (response.status===200) {
+
+      // const active = ''
+
+      // if (data.user.active) active = 'true'
+      // else active = 'false'
+
       setFormValues({
         id: data.user._id,
         name: data.user.name,
         email: data.user.email,
-        type: data.user.type
+        type: data.user.type,
+        active: data.user.active
       });
       
     }else console.log(data.message);
@@ -42,6 +51,7 @@ export const FormEditUser = ({handleSubmit}) => {
   const handleChange = (e) =>{
     const { name, value } = e.target;
     setFormValues({...formValues, [name]: value });
+    console.log(formValues)
   }
 
   const _handleSubmit = (e) => {
@@ -51,8 +61,8 @@ export const FormEditUser = ({handleSubmit}) => {
   }
 
   return (
-    <Card style={{ width: 400, margin: 'auto' }}>
-        <Card.Image size="16by9" src={userImg}></Card.Image>
+    <Card style={{ width: 300, margin: 'auto' }}>
+        <Card.Image size="square" src={userImg}></Card.Image>
           <Card.Content>
             <Content>
               <Form.Field>
@@ -76,6 +86,19 @@ export const FormEditUser = ({handleSubmit}) => {
                     </option>
                     <option value="admin">
                       admin
+                    </option>
+                  </Form.Select>
+                </Form.Control>
+              </Form.Field>
+              <Form.Field>
+                <Form.Label>Active</Form.Label>
+                <Form.Control>
+                  <Form.Select name="active" value={formValues.active} onChange={handleChange}>
+                    <option value='true'>
+                      Active
+                    </option>
+                    <option value='false'>
+                      Inactive
                     </option>
                   </Form.Select>
                 </Form.Control>

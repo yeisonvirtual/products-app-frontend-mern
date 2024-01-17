@@ -52,6 +52,8 @@ const deleteUser = async (userID) => {
 const updateUser = async (userData) => {
 
   const data = JSON.stringify(userData);
+
+  console.log(userData)
     
   try {
 
@@ -71,9 +73,30 @@ const updateUser = async (userData) => {
   }
 }
 
+const verifyUser = async (userID) => {
+    
+  try {
+
+    console.log('fetch:', userID)
+
+    const response = await fetch(`${urlBase}/verify/${userID}`,{
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    console.log(response)
+      
+    return response;
+
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+}
+
 export {
   getUser,
   getUsers,
   deleteUser,
-  updateUser
+  updateUser,
+  verifyUser
 }

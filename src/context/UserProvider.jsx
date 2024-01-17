@@ -17,11 +17,11 @@ export const UserProvider = ({ children }) => {
 
       const token = Cookies.get('token');
 
-      if (token===undefined) {
+      if (!token) {
         setIsAuthenticated(false);
-        setIsLoading(false);
         setUser({});
-        return user;
+        setIsLoading(false);
+        return;
       }
 
       try {
@@ -41,7 +41,7 @@ export const UserProvider = ({ children }) => {
       } catch (error) {
         console.log(error);
         setIsAuthenticated(false);
-        setUser(null);
+        setUser({});
       }
 
     }

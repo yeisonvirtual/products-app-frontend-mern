@@ -30,7 +30,7 @@ export const EditProduct = () => {
   return (
     <Section>
       <Container>
-        <h1 className="title has-text-centered">Edit Product</h1>
+        <h1 className="title has-text-centered">Product Edit</h1>
         {
             errors && (
               <Message color="danger">

@@ -1,25 +1,20 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
 import { Message } from "react-bulma-components";
 
 export const ProtectedRoute = () => {
 
-  const { isLoading, isAuthenticated, setIsAuthenticated } = useContext(UserContext);
+  const { isLoading, isAuthenticated } = useContext(UserContext);
   
   // Si esta cangando
   if (isLoading) {
     return (
       <Message color="warning">
-            <Message.Header>
-              <span>
-                Loading...
-              </span>
-              
-            </Message.Header>
-            
-          </Message>
+        <Message.Header>
+          <span>Loading...</span>
+        </Message.Header>
+      </Message>
     )
   }
 

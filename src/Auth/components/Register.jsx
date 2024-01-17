@@ -1,4 +1,4 @@
-import { Button, Message, Container, Section, Card } from 'react-bulma-components';
+import { Button, Message, Container, Section, Card, Content } from 'react-bulma-components';
 import { FormRegister } from './FormRegister';
 import { register } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,7 @@ export const Register = () => {
 
     if (response.status === 201) {
 
-      navigate('/login');
+      navigate(`/login/registered`);
 
     }
     else setErrors(data.message);
@@ -27,28 +27,32 @@ export const Register = () => {
   }
 
   return (
-    <Card style={{ width: 800, margin: 'auto' }}>
-    <Section>
-      <Container>
-        <h1 className="title has-text-centered">Register</h1>
-        {
-            errors && (
-              <Message color="danger">
-                <Message.Header>
-                  <span>
-                    Errors
-                  </span>
-                  <Button remove onClick={()=> setErrors(null)} />
-                </Message.Header>
-                <Message.Body>
-                  {errors}
-                </Message.Body>
-              </Message>
-            )
-          }
-        <FormRegister handleSubmit={handleSubmit} />
-      </Container>
-    </Section>
-    </Card>
+    <Content>
+      <Section>
+        <Card style={{ width: 800, margin: 'auto' }}>
+        <Section>
+          <Container>
+            <h1 className="title has-text-centered">Register</h1>
+            {
+                errors && (
+                  <Message color="danger">
+                    <Message.Header>
+                      <span>
+                        Errors
+                      </span>
+                      <Button remove onClick={()=> setErrors(null)} />
+                    </Message.Header>
+                    <Message.Body>
+                      {errors}
+                    </Message.Body>
+                  </Message>
+                )
+              }
+            <FormRegister handleSubmit={handleSubmit} />
+          </Container>
+        </Section>
+        </Card>
+      </Section>
+    </Content>
   )
 }

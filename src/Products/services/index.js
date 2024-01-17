@@ -1,6 +1,13 @@
 const urlBase = 'http://localhost:8080/v1/products'
 
 const saveProduct = async (productData) => {
+
+  if (!productData.name || !productData.unitaryPrice || !productData.image) {
+    const response = {
+      message: 'Faltan datos'
+    }
+    return response
+  }
     
   try {
 

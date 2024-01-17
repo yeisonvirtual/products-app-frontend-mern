@@ -1,4 +1,4 @@
-import { Card, Heading, Content } from "react-bulma-components"
+import { Card, Heading, Content, Section } from "react-bulma-components"
 import Owner from "../../assets/images/owner.jpg"
 import { useEffect, useState } from "react"
 import { getUser } from "../services/users"
@@ -28,23 +28,25 @@ export const ProfileUser = () => {
   }, []);
 
   return (
-    <Card style={{ width: 300, margin: 'auto' }}>
-      <Card.Image
-        src={Owner}
-      />
-      <Card.Content>
-        
-        <Content className="has-text-centered">
+    <Section>
+      <Card style={{ width: 300, margin: 'auto' }}>
+        <Card.Image
+          src={Owner}
+        />
+        <Card.Content>
+          
+          <Content className="has-text-centered">
 
-          <Heading size={4}>Profile</Heading>
-          <Heading size={6}>Email: {user.email}</Heading>
-          <Heading size={6}>Name: {user.name}</Heading>
-          <Heading size={6}>Type: {user.type}</Heading>
+            <Heading size={4}>Profile</Heading>
+            <Heading size={6}>Email: {user.email}</Heading>
+            <Heading size={6}>Name: {user.name}</Heading>
+            <Heading size={6}>Type: {user.type}</Heading>
 
-        </Content>
+          </Content>
 
-      </Card.Content>
+        </Card.Content>
 
-    </Card>
+      </Card>
+    </Section>
   )
 }

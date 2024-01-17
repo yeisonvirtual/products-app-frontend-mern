@@ -12,10 +12,14 @@ import { deleteProduct } from "../services";
 
 export const MyProducts = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isLoading, setisLoading] = useState(true)
-  const [products, setProducts] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  
+  const [success, setSuccess] = useState(null);
   const [errors, setErrors] = useState(null);
+  const [errorsAdd, setErrorsAdd] = useState(null);
+  
   const navigate = useNavigate();
 
   const loadProducts = async () => {
@@ -44,7 +48,7 @@ export const MyProducts = () => {
     
     const response = await deleteProduct(productID);
     const data = await response.json();
-    console.log(data)
+    console.log(data);
 
     if (response.status === 200) {
       loadProducts();
@@ -58,9 +62,18 @@ export const MyProducts = () => {
   }, []);
 
   const handleSubmit = async (data) => {
-    await saveProduct(data)
-    loadProducts()
-    setIsModalOpen(false)
+    
+    const response = await saveProduct(data);
+    console.log(response);
+
+    if (response.status===201) {
+      setIsModalOpen(false);
+      setSuccess(true);
+      setErrors(null);
+      loadProducts();
+    } else {
+      setErrorsAdd(response.message);
+    }
   }
 
   return (
@@ -68,6 +81,20 @@ export const MyProducts = () => {
     <Container>
       
       <Header title={'Products App'}></Header>
+
+      {
+        success && (
+          <Message color="success">
+            <Message.Header>
+              <span>Success</span>
+              <Button remove onClick={()=> setSuccess(null)} />
+            </Message.Header>
+            <Message.Body>
+              El producto fue agregado exitosamente
+            </Message.Body>
+          </Message>
+        )
+      }
       
       {
         errors && (
@@ -105,7 +132,6 @@ export const MyProducts = () => {
         )
       }
       
-      
       <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Card>
           <Modal.Card.Header>
@@ -114,6 +140,21 @@ export const MyProducts = () => {
             </Modal.Card.Title>
           </Modal.Card.Header>
           <Modal.Card.Body>
+            {
+              errorsAdd && (
+                <Message color="danger">
+                  <Message.Header>
+                    <span>
+                      Errors
+                    </span>
+                    <Button remove onClick={()=> setErrorsAdd(null)} />
+                  </Message.Header>
+                  <Message.Body>
+                    {errorsAdd}
+                  </Message.Body>
+                </Message>
+              )
+          }
             <FormComponent handleSubmit={handleSubmit}></FormComponent>
           </Modal.Card.Body>
         </Modal.Card>

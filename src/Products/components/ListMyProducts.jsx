@@ -20,7 +20,7 @@ export const ListMyProducts = ({products, handleEdit, handleDelete}) => {
               <Card.Image size="square" src={product.imgUrl}></Card.Image>
               <Card.Content>
                 <Content>
-                  <Heading>{product.name}</Heading>
+                  <Heading size={4}>{product.name}</Heading>
                   <Heading subtitle size={6}>Price: {product.unitaryPrice}</Heading>
                   { product.size && <Heading subtitle size={6}>Size: {product.size}</Heading> }
                   <p>

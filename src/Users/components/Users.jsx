@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
-import { Box, Button, Content, Form, Heading, Message, Pagination, Table } from "react-bulma-components"
+import { Box, Button, Content, Form, Heading, Message, Modal, Pagination, Section, Table } from "react-bulma-components"
 import { deleteUser, getUsers } from "../services/users"
 import { useNavigate } from "react-router-dom";
+import { FormRegister } from "../../Auth/components/FormRegister";
+import { register } from "../../Auth/services/auth";
 
 export const Users = () => {
 
@@ -67,103 +69,190 @@ export const Users = () => {
   useEffect(() => {
     loadUsers();
   }, [page]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const [success, setSuccess] = useState(false);
+  const [errorsRegister, setErrorsRegister] = useState(null);
+
+  const addUser = async (userData) => {
+    
+    const response = await register(userData);
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.status === 201) {
+      setIsModalOpen(false);
+      setErrorsRegister(null);
+      setSuccess(true);
+      setPage(1);
+    }
+    else setErrorsRegister(data.message);
+    
+  }
+
   
   return (
 
-    <Box style={{ width: 800, margin: 'auto' }}>
+    <>
 
-    <Heading size={4}>Users</Heading>
+      <Content>
+        <Section>
 
-    <Heading size={6}>Search</Heading>
+          <Box style={{ width: 900, margin: 'auto' }}>
 
-      {
-        errors && (
-          <Message color="danger">
-            <Message.Header>
-              <span>
-                Errors
-              </span>
-              <Button remove onClick={()=> setErrors(null)} />
-            </Message.Header>
-            <Message.Body>
-              {errors}
-            </Message.Body>
-          </Message>
-        )
-      
-      }
+          <Heading size={4}>Users</Heading>
 
+          <Heading size={6}>Search</Heading>
 
+            {
+              success && (
+                <Message color="success">
+                  <Message.Header>
+                    <span>
+                      Success
+                    </span>
+                    <Button remove onClick={()=> setSuccess(null)} />
+                  </Message.Header>
+                  <Message.Body>
+                    El usuario fue agregado exitosamente
+                  </Message.Body>
+                </Message>
+              )
+            
+            }
 
-      <Content style={{ display: 'flex' }}>
-        <Form.Field style={{ marginRight: 20 }}>
-          <Form.Control>
-            <Form.Select name="field" value={formValues.field} onChange={handleChange}>
-              <option value="0"></option>
-              <option value="1">name</option>
-              <option value="2">email</option>
-              <option value="3">type</option>
-            </Form.Select>
-          </Form.Control>
-        </Form.Field>
+            {
+              errors && (
+                <Message color="danger">
+                  <Message.Header>
+                    <span>
+                      Errors
+                    </span>
+                    <Button remove onClick={()=> setErrors(null)} />
+                  </Message.Header>
+                  <Message.Body>
+                    {errors}
+                  </Message.Body>
+                </Message>
+              )
+            
+            }
 
-        <Form.Field style={{ marginRight: 20 }}>
-          <Form.Control>
-            <Form.Input placeholder="Search" name="query" value={formValues.query} onChange={handleChange} />
-          </Form.Control>
-        </Form.Field>
+            <Content style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Content style={{ display: 'flex' }}>
+                <Form.Field style={{ marginRight: 20 }}>
+                  <Form.Control>
+                    <Form.Select name="field" value={formValues.field} onChange={handleChange}>
+                      <option value="0"></option>
+                      <option value="1">name</option>
+                      <option value="2">email</option>
+                      <option value="3">type</option>
+                      <option value="4">active</option>
+                      <option value="5">verified</option>
+                    </Form.Select>
+                  </Form.Control>
+                </Form.Field>
+                <Form.Field style={{ marginRight: 20 }}>
+                  <Form.Control>
+                    <Form.Input placeholder="Search" name="query" value={formValues.query} onChange={handleChange} />
+                  </Form.Control>
+                </Form.Field>
+                <Button rounded color="primary" onClick={_handleSubmit}>Search</Button>
+              </Content>
+              
+              <Content>
+                <Button rounded color="primary" style={{ float: "right" }} onClick={()=> setIsModalOpen(true)}>Add</Button>
+              </Content>
+              
+            </Content>
 
-        <Button rounded color="primary" onClick={_handleSubmit}>Search</Button>
+            <Table style={{ minHeight: 340, margin: 'auto' }}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>type</th>
+                  <th>active</th>
+                  <th>verified</th>
+                  <th>options</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  users.length>0 && users.map(user=>(
+                    <tr key={user._id}>
+                      <th>{user._id}</th>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.type}</td>
+                      <td style={{textAlign: 'center'}}>{user.active? '✔' : '✖'}</td>
+                      <td style={{textAlign: 'center'}}>{user.verified? '✔' : '✖'}</td>
+                      <td>
+                      <Button.Group style={{ width: 100 }}>
+                          <Button onClick={ () => _handleEdit(user._id) } color="info" renderAs="span">
+                            E
+                          </Button>
+                          <Button onClick={ () => _handleDelete(user._id) } color="danger" renderAs="span">
+                            D
+                          </Button>
+                        </Button.Group>
+                      </td>
+                    </tr>
+                  )
+                  )
+                }
+              </tbody>
+            </Table>
+            
+            <Pagination
+              style={{ height: 60 }}
+              current={page}
+              showFirstLast
+              total={totalPages}
+              next='Siguiente'
+              previous='Anterior'
+              rounded={true}
+              size={"small"}
+              onChange={onChange}
+            />
 
+          </Box>
+        </Section>
       </Content>
 
-      <Table style={{ minHeight: 340, margin: 'auto' }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Type</th>
-            <th>Options</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal.Card>
+        <Modal.Card.Header>
+          <Modal.Card.Title>
+            Add User
+          </Modal.Card.Title>
+        </Modal.Card.Header>
+        <Modal.Card.Body>
           {
-            users.length>0 && users.map(user=>(
-              <tr key={user._id}>
-                <th>{user._id}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.type}</td>
-                <td>
-                <Button.Group style={{ width: 100 }}>
-                    <Button onClick={ () => _handleEdit(user._id) } color="info" renderAs="span">
-                      E
-                    </Button>
-                    <Button onClick={ () => _handleDelete(user._id) } color="danger" renderAs="span">
-                      D
-                    </Button>
-                  </Button.Group>
-                </td>
-              </tr>
+            errorsRegister && (
+              <Message color="danger">
+                <Message.Header>
+                  <span>
+                    Errors
+                  </span>
+                  <Button remove onClick={()=> setErrors(null)} />
+                </Message.Header>
+                <Message.Body>
+                  {errorsRegister}
+                </Message.Body>
+              </Message>
             )
-            )
+          
           }
-        </tbody>
-      </Table>
-      
-      <Pagination
-        style={{ height: 60 }}
-        current={page}
-        showFirstLast
-        total={totalPages}
-        next='Siguiente'
-        previous='Anterior'
-        rounded={true}
-        size={"small"}
-        onChange={onChange}
-      />
+          <FormRegister handleSubmit={addUser}></FormRegister>
+        </Modal.Card.Body>
+      </Modal.Card>
+      </Modal>
 
-    </Box>
+    </>
   )
 }

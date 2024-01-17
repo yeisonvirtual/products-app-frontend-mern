@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import { Login } from './Auth/components/Login';
-import { ProtectedRoute } from "./utils/ProtectedRoute"
-import { ProductLayout } from "./Products/components/ProductLayout"
+import { ProtectedRoute } from "./utils/ProtectedRoute";
+import { AdminRoute } from "./utils/AdminRoute";
+import { ProductLayout } from "./Products/components/ProductLayout";
 import { Register } from './Auth/components/Register';
 import { MyProducts } from './Products/components/MyProducts';
 import { About } from './components/About';
@@ -19,16 +20,21 @@ export const AppRoutes = () => {
           <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path = '/about' element={ <About />  } />
+          <Route path="/login/:value" element={ <Login /> } />
 
           <Route element={ <ProtectedRoute />  }>
+
             <Route path = '/products' element={ <ProductLayout />  } />
             <Route path = '/myproducts' element={ <MyProducts />  } />
             <Route path = '/myproducts/:id' element={ <EditProduct />  } />
             <Route path = '/profile' element={ <Profile />  } />
             
-            <Route path = '/users' element={ <Users />  } />
             <Route path = '/users/:id' element={ <ProfileUser />  } />
-            <Route path = '/users/edit/:id' element={ <EditUser />  } />
+
+            <Route element={ <AdminRoute /> }>
+              <Route path = '/users' element={ <Users />  } />
+              <Route path = '/users/edit/:id' element={ <EditUser />  } />
+            </Route>
 
           </Route>
 
