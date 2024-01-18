@@ -4,50 +4,40 @@ Aplicación creada con el stack MERN (MongoDB, Express, React, Node).
 
 Frontend creado con React Bulma Component.
 
-## Login
+## Vistas
 
+- Login
 ![login](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/login.png)
 
-## Register
-
+- Register
 ![register](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/register.png)
 
-
-## Validaciones
-
+- Validaciones
 ![validaciones](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/validaciones.png)
 
-
-## Productos
-
+- Productos
 ![products](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/products.png)
 
-
-## Mis productos
-
+- Mis productos
 ![myproducts](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/myproducts.png)
 
-
-## Agregar producto
-
+- Agregar producto
 ![addproduct](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/addproduct.png)
 
-
-## Perfil
-
+- Perfil
 ![profile](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/profile.png)
 
-
-## Usuarios
-
+- Usuarios
 ![usuarios](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/users.png)
 
 
-## Editar usuario
-
+- Editar usuario
 ![editusuarios](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/edituser.png)
 
-
-## Buscar usuarios
-
+- Buscar usuarios
 ![search](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/search.png)
+
+- Responsividad
+![mobile](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/mobile.png)
+
+![menumobile](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/menumobile.png)
