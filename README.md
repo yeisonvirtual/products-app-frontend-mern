@@ -1,8 +1,53 @@
-# React + Vite
+# Products App - Stack MERN
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación creada con el stack MERN (MongoDB, Express, React, Node).
 
-Currently, two official plugins are available:
+Frontend creado con React Bulma Component.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Login
+
+![login](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/login.png)
+
+## Register
+
+![register](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/register.png)
+
+
+## Validaciones
+
+![validaciones](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/validaciones.png)
+
+
+## Productos
+
+![products](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/products.png)
+
+
+## Mis productos
+
+![myproducts](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/myproducts.png)
+
+
+## Agregar producto
+
+![addproduct](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/addproduct.png)
+
+
+## Perfil
+
+![profile](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/profile.png)
+
+
+## Usuarios
+
+![usuarios](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/users.png)
+
+
+## Editar usuario
+
+![editusuarios](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/edituser.png)
+
+
+## Buscar usuarios
+
+![search](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/search.png)
