@@ -31,6 +31,11 @@ Frontend creado con React Bulma Component.
 ![myproducts](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/myproducts.png)
 
 
+- Editar producto
+  
+![myproducts](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/editproduct.png)
+
+
 - Agregar producto
 
 ![addproduct](https://github.com/yeisonvirtual/products-app-frontend-mern/blob/main/design/addproduct.png)
